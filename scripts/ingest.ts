@@ -14,7 +14,10 @@
  */
 import * as fs from "fs";
 import * as path from "path";
-import type { Dataset, Match, Team } from "../src/types";
+import { fileURLToPath } from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import type { Dataset, Match, Team } from "../src/types.js";
 
 const SEED_PATH = path.join(__dirname, "..", "data", "worldcup2026.seed.json");
 const OUT_PATH = path.join(__dirname, "..", "data", "worldcup2026.json");

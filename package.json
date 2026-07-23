@@ -4,16 +4,17 @@
   "description": "Agent payable World Cup 2026 data API, gated with x402 micropayments on Injective",
   "license": "MIT",
   "private": true,
-  "type": "commonjs",
+  "type": "module",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "ts-node src/server.ts",
-    "ingest": "ts-node scripts/ingest.ts",
-    "ingest:refresh": "ts-node scripts/ingest.ts --refresh"
+    "dev": "node --loader ts-node/esm src/server.ts",
+    "ingest": "node --loader ts-node/esm scripts/ingest.ts",
+    "ingest:refresh": "node --loader ts-node/esm scripts/ingest.ts --refresh"
   },
   "dependencies": {
+    "@injectivelabs/x402": "^0.1.0-rc.1",
     "express": "^4.19.2"
   },
   "devDependencies": {
