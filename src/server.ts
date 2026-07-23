@@ -27,7 +27,7 @@ const USE_MAINNET = process.env.X402_NETWORK === "mainnet";
 const NETWORK = USE_MAINNET ? INJECTIVE_MAINNET_CAIP2 : INJECTIVE_TESTNET_CAIP2;
 
 // Native Circle USDC, EIP-3009 capable on both networks.
-const USDC = USE_MAINNET
+const USDC: `0x${string}` = USE_MAINNET
   ? "0xa00C59fF5a080D2b954d0c75e46E22a0c371235a"
   : "0x0C382e685bbeeFE5d3d9C29e29E341fEE8E84C5d";
 
