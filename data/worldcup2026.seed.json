@@ -4,7 +4,11 @@
     "name": "FIFA World Cup 2026",
     "edition": 23,
     "year": 2026,
-    "hosts": ["Canada", "Mexico", "United States"],
+    "hosts": [
+      "Canada",
+      "Mexico",
+      "United States"
+    ],
     "startDate": "2026-06-11",
     "endDate": "2026-07-19",
     "teamCount": 48,
@@ -15,48 +19,1376 @@
     "thirdPlace": "ENG",
     "fourthPlace": "FRA"
   },
-  "groups": [],
+  "groups": [
+    {
+      "name": "Group A",
+      "teams": [
+        "MEX",
+        "RSA",
+        "KOR",
+        "CZE"
+      ]
+    },
+    {
+      "name": "Group B",
+      "teams": [
+        "SUI",
+        "CAN",
+        "BIH",
+        "QAT"
+      ]
+    },
+    {
+      "name": "Group C",
+      "teams": [
+        "BRA",
+        "MAR",
+        "SCO",
+        "HAI"
+      ]
+    },
+    {
+      "name": "Group D",
+      "teams": [
+        "USA",
+        "AUS",
+        "PAR",
+        "TUR"
+      ]
+    },
+    {
+      "name": "Group E",
+      "teams": [
+        "GER",
+        "CIV",
+        "ECU",
+        "CUW"
+      ]
+    },
+    {
+      "name": "Group F",
+      "teams": [
+        "NED",
+        "JPN",
+        "SWE",
+        "TUN"
+      ]
+    },
+    {
+      "name": "Group G",
+      "teams": [
+        "BEL",
+        "EGY",
+        "IRN",
+        "NZL"
+      ]
+    },
+    {
+      "name": "Group H",
+      "teams": [
+        "ESP",
+        "CPV",
+        "URU",
+        "KSA"
+      ]
+    },
+    {
+      "name": "Group I",
+      "teams": [
+        "FRA",
+        "NOR",
+        "SEN",
+        "IRQ"
+      ]
+    },
+    {
+      "name": "Group J",
+      "teams": [
+        "ARG",
+        "AUT",
+        "ALG",
+        "JOR"
+      ]
+    },
+    {
+      "name": "Group K",
+      "teams": [
+        "COL",
+        "POR",
+        "COD",
+        "UZB"
+      ]
+    },
+    {
+      "name": "Group L",
+      "teams": [
+        "ENG",
+        "CRO",
+        "GHA",
+        "PAN"
+      ]
+    }
+  ],
   "teams": [
-    { "id": "ESP", "name": "Spain", "code": "ESP", "confederation": "UEFA" },
-    { "id": "ARG", "name": "Argentina", "code": "ARG", "confederation": "CONMEBOL" },
-    { "id": "ENG", "name": "England", "code": "ENG", "confederation": "UEFA" },
-    { "id": "FRA", "name": "France", "code": "FRA", "confederation": "UEFA" },
-    { "id": "BEL", "name": "Belgium", "code": "BEL", "confederation": "UEFA" },
-    { "id": "NOR", "name": "Norway", "code": "NOR", "confederation": "UEFA" },
-    { "id": "BRA", "name": "Brazil", "code": "BRA", "confederation": "CONMEBOL" },
-    { "id": "MEX", "name": "Mexico", "code": "MEX", "confederation": "CONCACAF" },
-    { "id": "PAR", "name": "Paraguay", "code": "PAR", "confederation": "CONMEBOL" }
+    {
+      "id": "MEX",
+      "name": "Mexico",
+      "code": "MEX",
+      "group": "Group A"
+    },
+    {
+      "id": "RSA",
+      "name": "South Africa",
+      "code": "RSA",
+      "group": "Group A"
+    },
+    {
+      "id": "KOR",
+      "name": "South Korea",
+      "code": "KOR",
+      "group": "Group A"
+    },
+    {
+      "id": "CZE",
+      "name": "Czechia",
+      "code": "CZE",
+      "group": "Group A"
+    },
+    {
+      "id": "CAN",
+      "name": "Canada",
+      "code": "CAN",
+      "group": "Group B"
+    },
+    {
+      "id": "BIH",
+      "name": "Bosnia-Herzegovina",
+      "code": "BIH",
+      "group": "Group B"
+    },
+    {
+      "id": "USA",
+      "name": "United States",
+      "code": "USA",
+      "group": "Group D"
+    },
+    {
+      "id": "PAR",
+      "name": "Paraguay",
+      "code": "PAR",
+      "group": "Group D"
+    },
+    {
+      "id": "QAT",
+      "name": "Qatar",
+      "code": "QAT",
+      "group": "Group B"
+    },
+    {
+      "id": "SUI",
+      "name": "Switzerland",
+      "code": "SUI",
+      "group": "Group B"
+    },
+    {
+      "id": "BRA",
+      "name": "Brazil",
+      "code": "BRA",
+      "group": "Group C"
+    },
+    {
+      "id": "MAR",
+      "name": "Morocco",
+      "code": "MAR",
+      "group": "Group C"
+    },
+    {
+      "id": "HAI",
+      "name": "Haiti",
+      "code": "HAI",
+      "group": "Group C"
+    },
+    {
+      "id": "SCO",
+      "name": "Scotland",
+      "code": "SCO",
+      "group": "Group C"
+    },
+    {
+      "id": "AUS",
+      "name": "Australia",
+      "code": "AUS",
+      "group": "Group D"
+    },
+    {
+      "id": "TUR",
+      "name": "Turkey",
+      "code": "TUR",
+      "group": "Group D"
+    },
+    {
+      "id": "GER",
+      "name": "Germany",
+      "code": "GER",
+      "group": "Group E"
+    },
+    {
+      "id": "CUW",
+      "name": "Curaçao",
+      "code": "CUW",
+      "group": "Group E"
+    },
+    {
+      "id": "NED",
+      "name": "Netherlands",
+      "code": "NED",
+      "group": "Group F"
+    },
+    {
+      "id": "JPN",
+      "name": "Japan",
+      "code": "JPN",
+      "group": "Group F"
+    },
+    {
+      "id": "CIV",
+      "name": "Ivory Coast",
+      "code": "CIV",
+      "group": "Group E"
+    },
+    {
+      "id": "ECU",
+      "name": "Ecuador",
+      "code": "ECU",
+      "group": "Group E"
+    },
+    {
+      "id": "SWE",
+      "name": "Sweden",
+      "code": "SWE",
+      "group": "Group F"
+    },
+    {
+      "id": "TUN",
+      "name": "Tunisia",
+      "code": "TUN",
+      "group": "Group F"
+    },
+    {
+      "id": "ESP",
+      "name": "Spain",
+      "code": "ESP",
+      "group": "Group H"
+    },
+    {
+      "id": "CPV",
+      "name": "Cape Verde Islands",
+      "code": "CPV",
+      "group": "Group H"
+    },
+    {
+      "id": "BEL",
+      "name": "Belgium",
+      "code": "BEL",
+      "group": "Group G"
+    },
+    {
+      "id": "EGY",
+      "name": "Egypt",
+      "code": "EGY",
+      "group": "Group G"
+    },
+    {
+      "id": "KSA",
+      "name": "Saudi Arabia",
+      "code": "KSA",
+      "group": "Group H"
+    },
+    {
+      "id": "URU",
+      "name": "Uruguay",
+      "code": "URU",
+      "group": "Group H"
+    },
+    {
+      "id": "IRN",
+      "name": "Iran",
+      "code": "IRN",
+      "group": "Group G"
+    },
+    {
+      "id": "NZL",
+      "name": "New Zealand",
+      "code": "NZL",
+      "group": "Group G"
+    },
+    {
+      "id": "FRA",
+      "name": "France",
+      "code": "FRA",
+      "group": "Group I"
+    },
+    {
+      "id": "SEN",
+      "name": "Senegal",
+      "code": "SEN",
+      "group": "Group I"
+    },
+    {
+      "id": "IRQ",
+      "name": "Iraq",
+      "code": "IRQ",
+      "group": "Group I"
+    },
+    {
+      "id": "NOR",
+      "name": "Norway",
+      "code": "NOR",
+      "group": "Group I"
+    },
+    {
+      "id": "ARG",
+      "name": "Argentina",
+      "code": "ARG",
+      "group": "Group J"
+    },
+    {
+      "id": "ALG",
+      "name": "Algeria",
+      "code": "ALG",
+      "group": "Group J"
+    },
+    {
+      "id": "AUT",
+      "name": "Austria",
+      "code": "AUT",
+      "group": "Group J"
+    },
+    {
+      "id": "JOR",
+      "name": "Jordan",
+      "code": "JOR",
+      "group": "Group J"
+    },
+    {
+      "id": "POR",
+      "name": "Portugal",
+      "code": "POR",
+      "group": "Group K"
+    },
+    {
+      "id": "COD",
+      "name": "Congo DR",
+      "code": "COD",
+      "group": "Group K"
+    },
+    {
+      "id": "ENG",
+      "name": "England",
+      "code": "ENG",
+      "group": "Group L"
+    },
+    {
+      "id": "CRO",
+      "name": "Croatia",
+      "code": "CRO",
+      "group": "Group L"
+    },
+    {
+      "id": "GHA",
+      "name": "Ghana",
+      "code": "GHA",
+      "group": "Group L"
+    },
+    {
+      "id": "PAN",
+      "name": "Panama",
+      "code": "PAN",
+      "group": "Group L"
+    },
+    {
+      "id": "UZB",
+      "name": "Uzbekistan",
+      "code": "UZB",
+      "group": "Group K"
+    },
+    {
+      "id": "COL",
+      "name": "Colombia",
+      "code": "COL",
+      "group": "Group K"
+    }
   ],
   "matches": [
     {
-      "id": "wc2026-r16-eng-mex",
-      "stage": "round_of_16",
-      "date": "2026-07-05",
+      "id": "wc2026-group-mex-rsa-2026-06-11",
+      "stage": "group",
+      "date": "2026-06-11",
+      "homeTeam": "MEX",
+      "awayTeam": "RSA",
+      "homeScore": 2,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-can-bih-2026-06-12",
+      "stage": "group",
+      "date": "2026-06-12",
+      "homeTeam": "CAN",
+      "awayTeam": "BIH",
+      "homeScore": 1,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-kor-cze-2026-06-12",
+      "stage": "group",
+      "date": "2026-06-12",
+      "homeTeam": "KOR",
+      "awayTeam": "CZE",
+      "homeScore": 2,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-bra-mar-2026-06-13",
+      "stage": "group",
+      "date": "2026-06-13",
+      "homeTeam": "BRA",
+      "awayTeam": "MAR",
+      "homeScore": 1,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-qat-sui-2026-06-13",
+      "stage": "group",
+      "date": "2026-06-13",
+      "homeTeam": "QAT",
+      "awayTeam": "SUI",
+      "homeScore": 1,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-usa-par-2026-06-13",
+      "stage": "group",
+      "date": "2026-06-13",
+      "homeTeam": "USA",
+      "awayTeam": "PAR",
+      "homeScore": 4,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-aus-tur-2026-06-14",
+      "stage": "group",
+      "date": "2026-06-14",
+      "homeTeam": "AUS",
+      "awayTeam": "TUR",
+      "homeScore": 2,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-civ-ecu-2026-06-14",
+      "stage": "group",
+      "date": "2026-06-14",
+      "homeTeam": "CIV",
+      "awayTeam": "ECU",
+      "homeScore": 1,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-ger-cuw-2026-06-14",
+      "stage": "group",
+      "date": "2026-06-14",
+      "homeTeam": "GER",
+      "awayTeam": "CUW",
+      "homeScore": 7,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-hai-sco-2026-06-14",
+      "stage": "group",
+      "date": "2026-06-14",
+      "homeTeam": "HAI",
+      "awayTeam": "SCO",
+      "homeScore": 0,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-ned-jpn-2026-06-14",
+      "stage": "group",
+      "date": "2026-06-14",
+      "homeTeam": "NED",
+      "awayTeam": "JPN",
+      "homeScore": 2,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-bel-egy-2026-06-15",
+      "stage": "group",
+      "date": "2026-06-15",
+      "homeTeam": "BEL",
+      "awayTeam": "EGY",
+      "homeScore": 1,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-esp-cpv-2026-06-15",
+      "stage": "group",
+      "date": "2026-06-15",
+      "homeTeam": "ESP",
+      "awayTeam": "CPV",
+      "homeScore": 0,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-ksa-uru-2026-06-15",
+      "stage": "group",
+      "date": "2026-06-15",
+      "homeTeam": "KSA",
+      "awayTeam": "URU",
+      "homeScore": 1,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-swe-tun-2026-06-15",
+      "stage": "group",
+      "date": "2026-06-15",
+      "homeTeam": "SWE",
+      "awayTeam": "TUN",
+      "homeScore": 5,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-fra-sen-2026-06-16",
+      "stage": "group",
+      "date": "2026-06-16",
+      "homeTeam": "FRA",
+      "awayTeam": "SEN",
+      "homeScore": 3,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-irn-nzl-2026-06-16",
+      "stage": "group",
+      "date": "2026-06-16",
+      "homeTeam": "IRN",
+      "awayTeam": "NZL",
+      "homeScore": 2,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-irq-nor-2026-06-16",
+      "stage": "group",
+      "date": "2026-06-16",
+      "homeTeam": "IRQ",
+      "awayTeam": "NOR",
+      "homeScore": 1,
+      "awayScore": 4,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-arg-alg-2026-06-17",
+      "stage": "group",
+      "date": "2026-06-17",
+      "homeTeam": "ARG",
+      "awayTeam": "ALG",
+      "homeScore": 3,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-aut-jor-2026-06-17",
+      "stage": "group",
+      "date": "2026-06-17",
+      "homeTeam": "AUT",
+      "awayTeam": "JOR",
+      "homeScore": 3,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-eng-cro-2026-06-17",
+      "stage": "group",
+      "date": "2026-06-17",
       "homeTeam": "ENG",
-      "awayTeam": "MEX",
+      "awayTeam": "CRO",
+      "homeScore": 4,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-gha-pan-2026-06-17",
+      "stage": "group",
+      "date": "2026-06-17",
+      "homeTeam": "GHA",
+      "awayTeam": "PAN",
+      "homeScore": 1,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-por-cod-2026-06-17",
+      "stage": "group",
+      "date": "2026-06-17",
+      "homeTeam": "POR",
+      "awayTeam": "COD",
+      "homeScore": 1,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-can-qat-2026-06-18",
+      "stage": "group",
+      "date": "2026-06-18",
+      "homeTeam": "CAN",
+      "awayTeam": "QAT",
+      "homeScore": 6,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-cze-rsa-2026-06-18",
+      "stage": "group",
+      "date": "2026-06-18",
+      "homeTeam": "CZE",
+      "awayTeam": "RSA",
+      "homeScore": 1,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-sui-bih-2026-06-18",
+      "stage": "group",
+      "date": "2026-06-18",
+      "homeTeam": "SUI",
+      "awayTeam": "BIH",
+      "homeScore": 4,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-uzb-col-2026-06-18",
+      "stage": "group",
+      "date": "2026-06-18",
+      "homeTeam": "UZB",
+      "awayTeam": "COL",
+      "homeScore": 1,
+      "awayScore": 3,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-mex-kor-2026-06-19",
+      "stage": "group",
+      "date": "2026-06-19",
+      "homeTeam": "MEX",
+      "awayTeam": "KOR",
+      "homeScore": 1,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-sco-mar-2026-06-19",
+      "stage": "group",
+      "date": "2026-06-19",
+      "homeTeam": "SCO",
+      "awayTeam": "MAR",
+      "homeScore": 0,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-usa-aus-2026-06-19",
+      "stage": "group",
+      "date": "2026-06-19",
+      "homeTeam": "USA",
+      "awayTeam": "AUS",
+      "homeScore": 2,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-bra-hai-2026-06-20",
+      "stage": "group",
+      "date": "2026-06-20",
+      "homeTeam": "BRA",
+      "awayTeam": "HAI",
+      "homeScore": 3,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-ger-civ-2026-06-20",
+      "stage": "group",
+      "date": "2026-06-20",
+      "homeTeam": "GER",
+      "awayTeam": "CIV",
+      "homeScore": 2,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-ned-swe-2026-06-20",
+      "stage": "group",
+      "date": "2026-06-20",
+      "homeTeam": "NED",
+      "awayTeam": "SWE",
+      "homeScore": 5,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-tur-par-2026-06-20",
+      "stage": "group",
+      "date": "2026-06-20",
+      "homeTeam": "TUR",
+      "awayTeam": "PAR",
+      "homeScore": 0,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-bel-irn-2026-06-21",
+      "stage": "group",
+      "date": "2026-06-21",
+      "homeTeam": "BEL",
+      "awayTeam": "IRN",
+      "homeScore": 0,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-ecu-cuw-2026-06-21",
+      "stage": "group",
+      "date": "2026-06-21",
+      "homeTeam": "ECU",
+      "awayTeam": "CUW",
+      "homeScore": 0,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-esp-ksa-2026-06-21",
+      "stage": "group",
+      "date": "2026-06-21",
+      "homeTeam": "ESP",
+      "awayTeam": "KSA",
+      "homeScore": 4,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-tun-jpn-2026-06-21",
+      "stage": "group",
+      "date": "2026-06-21",
+      "homeTeam": "TUN",
+      "awayTeam": "JPN",
+      "homeScore": 0,
+      "awayScore": 4,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-uru-cpv-2026-06-21",
+      "stage": "group",
+      "date": "2026-06-21",
+      "homeTeam": "URU",
+      "awayTeam": "CPV",
+      "homeScore": 2,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-arg-aut-2026-06-22",
+      "stage": "group",
+      "date": "2026-06-22",
+      "homeTeam": "ARG",
+      "awayTeam": "AUT",
+      "homeScore": 2,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-fra-irq-2026-06-22",
+      "stage": "group",
+      "date": "2026-06-22",
+      "homeTeam": "FRA",
+      "awayTeam": "IRQ",
+      "homeScore": 3,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-nzl-egy-2026-06-22",
+      "stage": "group",
+      "date": "2026-06-22",
+      "homeTeam": "NZL",
+      "awayTeam": "EGY",
+      "homeScore": 1,
+      "awayScore": 3,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-eng-gha-2026-06-23",
+      "stage": "group",
+      "date": "2026-06-23",
+      "homeTeam": "ENG",
+      "awayTeam": "GHA",
+      "homeScore": 0,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-jor-alg-2026-06-23",
+      "stage": "group",
+      "date": "2026-06-23",
+      "homeTeam": "JOR",
+      "awayTeam": "ALG",
+      "homeScore": 1,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-nor-sen-2026-06-23",
+      "stage": "group",
+      "date": "2026-06-23",
+      "homeTeam": "NOR",
+      "awayTeam": "SEN",
       "homeScore": 3,
       "awayScore": 2,
-      "provenance": "verified"
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-pan-cro-2026-06-23",
+      "stage": "group",
+      "date": "2026-06-23",
+      "homeTeam": "PAN",
+      "awayTeam": "CRO",
+      "homeScore": 0,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-por-uzb-2026-06-23",
+      "stage": "group",
+      "date": "2026-06-23",
+      "homeTeam": "POR",
+      "awayTeam": "UZB",
+      "homeScore": 5,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-bih-qat-2026-06-24",
+      "stage": "group",
+      "date": "2026-06-24",
+      "homeTeam": "BIH",
+      "awayTeam": "QAT",
+      "homeScore": 3,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-col-cod-2026-06-24",
+      "stage": "group",
+      "date": "2026-06-24",
+      "homeTeam": "COL",
+      "awayTeam": "COD",
+      "homeScore": 1,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-mar-hai-2026-06-24",
+      "stage": "group",
+      "date": "2026-06-24",
+      "homeTeam": "MAR",
+      "awayTeam": "HAI",
+      "homeScore": 4,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-sco-bra-2026-06-24",
+      "stage": "group",
+      "date": "2026-06-24",
+      "homeTeam": "SCO",
+      "awayTeam": "BRA",
+      "homeScore": 0,
+      "awayScore": 3,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-sui-can-2026-06-24",
+      "stage": "group",
+      "date": "2026-06-24",
+      "homeTeam": "SUI",
+      "awayTeam": "CAN",
+      "homeScore": 2,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-cuw-civ-2026-06-25",
+      "stage": "group",
+      "date": "2026-06-25",
+      "homeTeam": "CUW",
+      "awayTeam": "CIV",
+      "homeScore": 0,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-cze-mex-2026-06-25",
+      "stage": "group",
+      "date": "2026-06-25",
+      "homeTeam": "CZE",
+      "awayTeam": "MEX",
+      "homeScore": 0,
+      "awayScore": 3,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-ecu-ger-2026-06-25",
+      "stage": "group",
+      "date": "2026-06-25",
+      "homeTeam": "ECU",
+      "awayTeam": "GER",
+      "homeScore": 2,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-jpn-swe-2026-06-25",
+      "stage": "group",
+      "date": "2026-06-25",
+      "homeTeam": "JPN",
+      "awayTeam": "SWE",
+      "homeScore": 1,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-rsa-kor-2026-06-25",
+      "stage": "group",
+      "date": "2026-06-25",
+      "homeTeam": "RSA",
+      "awayTeam": "KOR",
+      "homeScore": 1,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-tun-ned-2026-06-25",
+      "stage": "group",
+      "date": "2026-06-25",
+      "homeTeam": "TUN",
+      "awayTeam": "NED",
+      "homeScore": 1,
+      "awayScore": 3,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-nor-fra-2026-06-26",
+      "stage": "group",
+      "date": "2026-06-26",
+      "homeTeam": "NOR",
+      "awayTeam": "FRA",
+      "homeScore": 1,
+      "awayScore": 4,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-par-aus-2026-06-26",
+      "stage": "group",
+      "date": "2026-06-26",
+      "homeTeam": "PAR",
+      "awayTeam": "AUS",
+      "homeScore": 0,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-sen-irq-2026-06-26",
+      "stage": "group",
+      "date": "2026-06-26",
+      "homeTeam": "SEN",
+      "awayTeam": "IRQ",
+      "homeScore": 5,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-tur-usa-2026-06-26",
+      "stage": "group",
+      "date": "2026-06-26",
+      "homeTeam": "TUR",
+      "awayTeam": "USA",
+      "homeScore": 3,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-cod-uzb-2026-06-27",
+      "stage": "group",
+      "date": "2026-06-27",
+      "homeTeam": "COD",
+      "awayTeam": "UZB",
+      "homeScore": 3,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-col-por-2026-06-27",
+      "stage": "group",
+      "date": "2026-06-27",
+      "homeTeam": "COL",
+      "awayTeam": "POR",
+      "homeScore": 0,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-cpv-ksa-2026-06-27",
+      "stage": "group",
+      "date": "2026-06-27",
+      "homeTeam": "CPV",
+      "awayTeam": "KSA",
+      "homeScore": 0,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-cro-gha-2026-06-27",
+      "stage": "group",
+      "date": "2026-06-27",
+      "homeTeam": "CRO",
+      "awayTeam": "GHA",
+      "homeScore": 2,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-egy-irn-2026-06-27",
+      "stage": "group",
+      "date": "2026-06-27",
+      "homeTeam": "EGY",
+      "awayTeam": "IRN",
+      "homeScore": 1,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-nzl-bel-2026-06-27",
+      "stage": "group",
+      "date": "2026-06-27",
+      "homeTeam": "NZL",
+      "awayTeam": "BEL",
+      "homeScore": 1,
+      "awayScore": 5,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-pan-eng-2026-06-27",
+      "stage": "group",
+      "date": "2026-06-27",
+      "homeTeam": "PAN",
+      "awayTeam": "ENG",
+      "homeScore": 0,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-uru-esp-2026-06-27",
+      "stage": "group",
+      "date": "2026-06-27",
+      "homeTeam": "URU",
+      "awayTeam": "ESP",
+      "homeScore": 0,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-alg-aut-2026-06-28",
+      "stage": "group",
+      "date": "2026-06-28",
+      "homeTeam": "ALG",
+      "awayTeam": "AUT",
+      "homeScore": 3,
+      "awayScore": 3,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-group-jor-arg-2026-06-28",
+      "stage": "group",
+      "date": "2026-06-28",
+      "homeTeam": "JOR",
+      "awayTeam": "ARG",
+      "homeScore": 1,
+      "awayScore": 3,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-rsa-can-2026-06-28",
+      "stage": "round_of_32",
+      "date": "2026-06-28",
+      "homeTeam": "RSA",
+      "awayTeam": "CAN",
+      "homeScore": 0,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-bra-jpn-2026-06-29",
+      "stage": "round_of_32",
+      "date": "2026-06-29",
+      "homeTeam": "BRA",
+      "awayTeam": "JPN",
+      "homeScore": 2,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-ger-par-2026-06-29",
+      "stage": "round_of_32",
+      "date": "2026-06-29",
+      "homeTeam": "GER",
+      "awayTeam": "PAR",
+      "homeScore": 4,
+      "awayScore": 5,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-civ-nor-2026-06-30",
+      "stage": "round_of_32",
+      "date": "2026-06-30",
+      "homeTeam": "CIV",
+      "awayTeam": "NOR",
+      "homeScore": 1,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-fra-swe-2026-06-30",
+      "stage": "round_of_32",
+      "date": "2026-06-30",
+      "homeTeam": "FRA",
+      "awayTeam": "SWE",
+      "homeScore": 3,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-ned-mar-2026-06-30",
+      "stage": "round_of_32",
+      "date": "2026-06-30",
+      "homeTeam": "NED",
+      "awayTeam": "MAR",
+      "homeScore": 3,
+      "awayScore": 4,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-bel-sen-2026-07-01",
+      "stage": "round_of_32",
+      "date": "2026-07-01",
+      "homeTeam": "BEL",
+      "awayTeam": "SEN",
+      "homeScore": 3,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-eng-cod-2026-07-01",
+      "stage": "round_of_32",
+      "date": "2026-07-01",
+      "homeTeam": "ENG",
+      "awayTeam": "COD",
+      "homeScore": 2,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-mex-ecu-2026-07-01",
+      "stage": "round_of_32",
+      "date": "2026-07-01",
+      "homeTeam": "MEX",
+      "awayTeam": "ECU",
+      "homeScore": 2,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-esp-aut-2026-07-02",
+      "stage": "round_of_32",
+      "date": "2026-07-02",
+      "homeTeam": "ESP",
+      "awayTeam": "AUT",
+      "homeScore": 3,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-por-cro-2026-07-02",
+      "stage": "round_of_32",
+      "date": "2026-07-02",
+      "homeTeam": "POR",
+      "awayTeam": "CRO",
+      "homeScore": 2,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-usa-bih-2026-07-02",
+      "stage": "round_of_32",
+      "date": "2026-07-02",
+      "homeTeam": "USA",
+      "awayTeam": "BIH",
+      "homeScore": 2,
+      "awayScore": 0,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-arg-cpv-2026-07-03",
+      "stage": "round_of_32",
+      "date": "2026-07-03",
+      "homeTeam": "ARG",
+      "awayTeam": "CPV",
+      "homeScore": 3,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-aus-egy-2026-07-03",
+      "stage": "round_of_32",
+      "date": "2026-07-03",
+      "homeTeam": "AUS",
+      "awayTeam": "EGY",
+      "homeScore": 3,
+      "awayScore": 5,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-sui-alg-2026-07-03",
+      "stage": "round_of_32",
+      "date": "2026-07-03",
+      "homeTeam": "SUI",
+      "awayTeam": "ALG",
+      "homeScore": 2,
+      "awayScore": 0,
+      "provenance": "imported"
     },
     {
       "id": "wc2026-r16-fra-par",
       "stage": "round_of_16",
-      "date": "2026-07-05",
-      "homeTeam": "FRA",
-      "awayTeam": "PAR",
+      "date": "2026-07-04",
+      "homeTeam": "PAR",
+      "awayTeam": "FRA",
+      "homeScore": 0,
+      "awayScore": 1,
+      "provenance": "verified"
+    },
+    {
+      "id": "wc2026-round_of_16-can-mar-2026-07-04",
+      "stage": "round_of_16",
+      "date": "2026-07-04",
+      "homeTeam": "CAN",
+      "awayTeam": "MAR",
+      "homeScore": 0,
+      "awayScore": 3,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_32-col-gha-2026-07-04",
+      "stage": "round_of_32",
+      "date": "2026-07-04",
+      "homeTeam": "COL",
+      "awayTeam": "GHA",
       "homeScore": 1,
       "awayScore": 0,
-      "provenance": "verified"
+      "provenance": "imported"
     },
     {
       "id": "wc2026-r16-nor-bra",
       "stage": "round_of_16",
+      "date": "2026-07-05",
+      "homeTeam": "BRA",
+      "awayTeam": "NOR",
+      "homeScore": 1,
+      "awayScore": 2,
+      "provenance": "verified"
+    },
+    {
+      "id": "wc2026-r16-eng-mex",
+      "stage": "round_of_16",
       "date": "2026-07-06",
-      "homeTeam": "NOR",
-      "awayTeam": "BRA",
+      "homeTeam": "MEX",
+      "awayTeam": "ENG",
+      "homeScore": 2,
+      "awayScore": 3,
+      "provenance": "verified"
+    },
+    {
+      "id": "wc2026-round_of_16-por-esp-2026-07-06",
+      "stage": "round_of_16",
+      "date": "2026-07-06",
+      "homeTeam": "POR",
+      "awayTeam": "ESP",
+      "homeScore": 0,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_16-arg-egy-2026-07-07",
+      "stage": "round_of_16",
+      "date": "2026-07-07",
+      "homeTeam": "ARG",
+      "awayTeam": "EGY",
+      "homeScore": 3,
+      "awayScore": 2,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_16-sui-col-2026-07-07",
+      "stage": "round_of_16",
+      "date": "2026-07-07",
+      "homeTeam": "SUI",
+      "awayTeam": "COL",
+      "homeScore": 4,
+      "awayScore": 3,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-round_of_16-usa-bel-2026-07-07",
+      "stage": "round_of_16",
+      "date": "2026-07-07",
+      "homeTeam": "USA",
+      "awayTeam": "BEL",
+      "homeScore": 1,
+      "awayScore": 4,
+      "provenance": "imported"
+    },
+    {
+      "id": "wc2026-quarter_final-fra-mar-2026-07-09",
+      "stage": "quarter_final",
+      "date": "2026-07-09",
+      "homeTeam": "FRA",
+      "awayTeam": "MAR",
       "homeScore": 2,
       "awayScore": 0,
-      "provenance": "verified"
+      "provenance": "imported"
     },
     {
       "id": "wc2026-qf-esp-bel",
@@ -79,16 +1411,35 @@
       "provenance": "verified"
     },
     {
+      "id": "wc2026-quarter_final-arg-sui-2026-07-12",
+      "stage": "quarter_final",
+      "date": "2026-07-12",
+      "homeTeam": "ARG",
+      "awayTeam": "SUI",
+      "homeScore": 3,
+      "awayScore": 1,
+      "provenance": "imported"
+    },
+    {
       "id": "wc2026-sf-esp-fra",
       "stage": "semi_final",
       "date": "2026-07-14",
-      "homeTeam": "ESP",
-      "awayTeam": "FRA",
-      "homeScore": 2,
-      "awayScore": 0,
+      "homeTeam": "FRA",
+      "awayTeam": "ESP",
+      "homeScore": 0,
+      "awayScore": 2,
       "goals": [
-        { "team": "ESP", "scorer": "Mikel Oyarzabal", "minute": 22, "penalty": true },
-        { "team": "ESP", "scorer": "Pedro Porro", "minute": 58 }
+        {
+          "team": "ESP",
+          "scorer": "Mikel Oyarzabal",
+          "minute": 22,
+          "penalty": true
+        },
+        {
+          "team": "ESP",
+          "scorer": "Pedro Porro",
+          "minute": 58
+        }
       ],
       "provenance": "verified"
     },
@@ -96,14 +1447,22 @@
       "id": "wc2026-sf-arg-eng",
       "stage": "semi_final",
       "date": "2026-07-15",
-      "homeTeam": "ARG",
-      "awayTeam": "ENG",
-      "homeScore": 2,
-      "awayScore": 1,
+      "homeTeam": "ENG",
+      "awayTeam": "ARG",
+      "homeScore": 1,
+      "awayScore": 2,
       "afterExtraTime": true,
       "goals": [
-        { "team": "ARG", "scorer": "Enzo Fernandez", "minute": 85 },
-        { "team": "ARG", "scorer": "Lautaro Martinez", "minute": 92 }
+        {
+          "team": "ARG",
+          "scorer": "Enzo Fernandez",
+          "minute": 85
+        },
+        {
+          "team": "ARG",
+          "scorer": "Lautaro Martinez",
+          "minute": 92
+        }
       ],
       "provenance": "verified"
     },
@@ -111,10 +1470,10 @@
       "id": "wc2026-third-eng-fra",
       "stage": "third_place",
       "date": "2026-07-18",
-      "homeTeam": "ENG",
-      "awayTeam": "FRA",
-      "homeScore": 6,
-      "awayScore": 4,
+      "homeTeam": "FRA",
+      "awayTeam": "ENG",
+      "homeScore": 4,
+      "awayScore": 6,
       "provenance": "verified"
     },
     {
@@ -128,15 +1487,19 @@
       "afterExtraTime": true,
       "venue": "MetLife Stadium, New Jersey",
       "goals": [
-        { "team": "ESP", "scorer": "Ferran Torres", "minute": 106 }
+        {
+          "team": "ESP",
+          "scorer": "Ferran Torres",
+          "minute": 106
+        }
       ],
       "provenance": "verified"
     }
   ],
   "meta": {
     "generatedAt": "2026-07-23",
-    "source": "seed",
-    "coverage": "knockout",
+    "source": "seed (verified knockout) + football-data.org",
+    "coverage": "full",
     "notes": [
       "Seed covers the verified knockout phase and tournament metadata.",
       "Group stage fixtures are not included in the seed and are populated by the refresh path.",

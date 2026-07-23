@@ -5,27 +5,31 @@
  *
  *   npm run ingest            offline. Builds the store from the committed seed
  *                             so the API runs with no key and no network.
- *   npm run ingest:refresh    pulls the full fixture list from football-data.org
- *                             and merges it over the seed. Needs FOOTBALL_DATA_KEY.
+ *   npm run ingest:refresh    pulls the full tournament (matches, teams, groups)
+ *                             from football-data.org and merges it over the
+ *                             seed. Needs FOOTBALL_DATA_KEY.
  *
- * The seed always wins on conflicts. Seeded matches were cross checked by hand
- * against public sources, so an imported record never silently overwrites a
- * verified one. Conflicts are reported instead.
+ * Provenance is preserved. The seed's hand verified knockout records (with goal
+ * timelines, venue, and extra time flags) win over the imported feed: an
+ * imported record never overwrites a verified one, and any disagreement is
+ * reported rather than hidden. Group stage and the remaining knockout fixtures
+ * come from the feed marked "imported".
+ *
+ * Pass --write-seed to also persist the enriched result back to the seed file,
+ * so a later offline run has the complete dataset with no key.
  */
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
+import type { Dataset, Match, Team, Group } from "../src/types.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-import type { Dataset, Match, Team } from "../src/types.js";
-
 const SEED_PATH = path.join(__dirname, "..", "data", "worldcup2026.seed.json");
 const OUT_PATH = path.join(__dirname, "..", "data", "worldcup2026.json");
 const API_BASE = "https://api.football-data.org/v4";
 
 function loadSeed(): Dataset {
-  const raw = fs.readFileSync(SEED_PATH, "utf8");
-  return JSON.parse(raw) as Dataset;
+  return JSON.parse(fs.readFileSync(SEED_PATH, "utf8")) as Dataset;
 }
 
 function stageFromApi(stage: string): Match["stage"] | null {
@@ -41,35 +45,72 @@ function stageFromApi(stage: string): Match["stage"] | null {
   return map[stage] ?? null;
 }
 
-async function fetchUpstream(key: string): Promise<{ matches: Match[]; teams: Team[] }> {
-  const res = await fetch(`${API_BASE}/competitions/WC/matches`, {
-    headers: { "X-Auth-Token": key },
-  });
+async function apiGet(pathname: string, key: string): Promise<any> {
+  const res = await fetch(`${API_BASE}${pathname}`, { headers: { "X-Auth-Token": key } });
   if (!res.ok) {
     throw new Error(
-      `football-data.org returned ${res.status}. Check FOOTBALL_DATA_KEY and that the free tier covers this competition.`
+      `football-data.org ${pathname} returned ${res.status}. ` +
+        `Check FOOTBALL_DATA_KEY and that the free tier covers this competition.`
     );
   }
-  const body: any = await res.json();
-  const matches: Match[] = [];
-  const teams = new Map<string, Team>();
+  return res.json();
+}
 
-  for (const m of body.matches ?? []) {
+interface Upstream {
+  matches: Match[];
+  teams: Team[];
+  groups: Group[];
+}
+
+async function fetchUpstream(key: string): Promise<Upstream> {
+  const [matchBody, teamBody, standingBody] = await Promise.all([
+    apiGet("/competitions/WC/matches", key),
+    apiGet("/competitions/WC/teams", key),
+    apiGet("/competitions/WC/standings", key),
+  ]);
+
+  const teamMeta = new Map<string, { name: string; confederation?: string }>();
+  for (const t of teamBody.teams ?? []) {
+    if (t.tla) teamMeta.set(t.tla, { name: t.name });
+  }
+
+  // Groups from the standings tables, and each team's group.
+  const groups: Group[] = [];
+  const teamGroup = new Map<string, string>();
+  for (const s of standingBody.standings ?? []) {
+    if (s.type !== "TOTAL" || !s.group) continue;
+    const name = String(s.group);
+    const codes = (s.table ?? [])
+      .map((row: any) => row.team?.tla)
+      .filter(Boolean);
+    groups.push({ name, teams: codes });
+    for (const c of codes) teamGroup.set(c, name);
+  }
+  groups.sort((a, b) => a.name.localeCompare(b.name));
+
+  const teams = new Map<string, Team>();
+  const matches: Match[] = [];
+
+  for (const m of matchBody.matches ?? []) {
     const stage = stageFromApi(m.stage);
     if (!stage) continue;
-    const home = m.homeTeam?.tla ?? m.homeTeam?.shortName;
-    const away = m.awayTeam?.tla ?? m.awayTeam?.shortName;
+    const home = m.homeTeam?.tla;
+    const away = m.awayTeam?.tla;
     if (!home || !away) continue;
 
-    if (m.homeTeam?.tla) {
-      teams.set(m.homeTeam.tla, { id: m.homeTeam.tla, name: m.homeTeam.name, code: m.homeTeam.tla });
-    }
-    if (m.awayTeam?.tla) {
-      teams.set(m.awayTeam.tla, { id: m.awayTeam.tla, name: m.awayTeam.name, code: m.awayTeam.tla });
+    for (const t of [m.homeTeam, m.awayTeam]) {
+      if (t?.tla && !teams.has(t.tla)) {
+        teams.set(t.tla, {
+          id: t.tla,
+          name: teamMeta.get(t.tla)?.name ?? t.name ?? t.tla,
+          code: t.tla,
+          group: teamGroup.get(t.tla),
+        });
+      }
     }
 
     matches.push({
-      id: `wc2026-api-${m.id}`,
+      id: `wc2026-${stage}-${home.toLowerCase()}-${away.toLowerCase()}-${(m.utcDate ?? "").slice(0, 10)}`,
       stage,
       date: (m.utcDate ?? "").slice(0, 10),
       homeTeam: home,
@@ -79,16 +120,19 @@ async function fetchUpstream(key: string): Promise<{ matches: Match[]; teams: Te
       provenance: "imported",
     });
   }
-  return { matches, teams: [...teams.values()] };
+
+  return { matches, teams: [...teams.values()], groups };
 }
 
-/** Same fixture regardless of which source named it. */
-function fixtureKey(m: Match): string {
-  return [m.stage, m.date, m.homeTeam, m.awayTeam].join("|");
+/** Knockout fixtures identified by stage and the unordered team pair, so a
+ *  verified record and its feed counterpart reconcile even if dates differ. */
+function knockoutKey(m: Match): string {
+  return [m.stage, [m.homeTeam, m.awayTeam].sort().join("-")].join("|");
 }
 
 async function main() {
   const refresh = process.argv.includes("--refresh");
+  const writeSeed = process.argv.includes("--write-seed");
   const dataset = loadSeed();
   const conflicts: string[] = [];
 
@@ -96,13 +140,13 @@ async function main() {
     const key = process.env.FOOTBALL_DATA_KEY;
     if (!key) {
       console.error(
-        "error: --refresh needs FOOTBALL_DATA_KEY. Get a free key at football-data.org, then:\n" +
+        "error: --refresh needs FOOTBALL_DATA_KEY. Put it in .env or pass it inline:\n" +
           "  FOOTBALL_DATA_KEY=yourkey npm run ingest:refresh"
       );
       process.exit(2);
     }
 
-    let upstream;
+    let upstream: Upstream;
     try {
       upstream = await fetchUpstream(key);
     } catch (err) {
@@ -111,46 +155,75 @@ async function main() {
       process.exit(2);
     }
 
-    const seeded = new Map(dataset.matches.map((m) => [fixtureKey(m), m]));
-    let added = 0;
+    // The verified knockout records already in the seed win. Reconcile each
+    // against its feed counterpart: adopt the feed's authoritative date, keep
+    // the verified score and rich detail, and report any score disagreement.
+    const verified = dataset.matches.filter((m) => m.provenance === "verified");
+    const verifiedKeys = new Set(verified.map(knockoutKey));
+    const upstreamByKey = new Map(upstream.matches.map((m) => [knockoutKey(m), m]));
 
-    for (const m of upstream.matches) {
-      const existing = seeded.get(fixtureKey(m));
-      if (existing) {
-        // seed wins, but report any disagreement rather than hiding it
-        if (existing.homeScore !== m.homeScore || existing.awayScore !== m.awayScore) {
-          conflicts.push(
-            `${existing.id}: seed says ${existing.homeScore}-${existing.awayScore}, ` +
-              `upstream says ${m.homeScore}-${m.awayScore}. Seed kept.`
-          );
-        }
-        continue;
+    // Result as a per-team map, so a home/away orientation difference is not
+    // mistaken for a disagreement. Only a genuinely different score is.
+    const resultMap = (m: Match): string =>
+      JSON.stringify(
+        Object.fromEntries(
+          [
+            [m.homeTeam, m.homeScore],
+            [m.awayTeam, m.awayScore],
+          ].sort()
+        )
+      );
+
+    for (const v of verified) {
+      const u = upstreamByKey.get(knockoutKey(v));
+      if (!u) continue;
+      if (resultMap(v) !== resultMap(u)) {
+        conflicts.push(
+          `${v.id}: verified result differs from feed (${u.homeTeam} ${u.homeScore}-${u.awayScore} ${u.awayTeam}). Verified kept.`
+        );
+        continue; // genuine disagreement, keep the verified record untouched
       }
-      dataset.matches.push(m);
-      added++;
+      // Same result. Adopt the feed's authoritative home/away, score, and date,
+      // and keep the verified rich detail (goals, venue, extra time). Goals are
+      // keyed by team code, so they stay correct under the flip.
+      v.homeTeam = u.homeTeam;
+      v.awayTeam = u.awayTeam;
+      v.homeScore = u.homeScore;
+      v.awayScore = u.awayScore;
+      if (u.date) v.date = u.date;
     }
 
-    const known = new Set(dataset.teams.map((t) => t.id));
-    for (const t of upstream.teams) {
-      if (!known.has(t.id)) dataset.teams.push(t);
-    }
+    // Everything from the feed that is not a verified fixture is added as imported.
+    const added: Match[] = upstream.matches.filter((m) => !verifiedKeys.has(knockoutKey(m)));
+    dataset.matches = [...verified, ...added];
 
-    dataset.meta.source = "seed + football-data.org";
+    dataset.teams = upstream.teams;   // authoritative 48 with group tags
+    dataset.groups = upstream.groups; // authoritative 12
+    dataset.meta.source = "seed (verified knockout) + football-data.org";
     dataset.meta.coverage = "full";
-    console.log(`refresh: added ${added} matches, ${dataset.teams.length} teams total`);
+    console.log(
+      `refresh: ${verified.length} verified kept, ${added.length} imported, ` +
+        `${dataset.teams.length} teams, ${dataset.groups.length} groups`
+    );
   }
 
   dataset.meta.generatedAt = new Date().toISOString().slice(0, 10);
-  dataset.matches.sort((a, b) => a.date.localeCompare(b.date));
+  dataset.matches.sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
 
-  fs.writeFileSync(OUT_PATH, JSON.stringify(dataset, null, 2) + "\n");
+  const json = JSON.stringify(dataset, null, 2) + "\n";
+  fs.writeFileSync(OUT_PATH, json);
+  if (writeSeed) {
+    fs.writeFileSync(SEED_PATH, json);
+    console.log(`updated seed: ${SEED_PATH}`);
+  }
 
   console.log(`wrote ${OUT_PATH}`);
   console.log(`  matches: ${dataset.matches.length}`);
   console.log(`  teams:   ${dataset.teams.length}`);
+  console.log(`  groups:  ${dataset.groups.length}`);
   console.log(`  source:  ${dataset.meta.source}`);
   if (conflicts.length) {
-    console.log("\nconflicts, seed values kept:");
+    console.log("\nconflicts, verified values kept:");
     for (const c of conflicts) console.log(`  ${c}`);
   }
 }
