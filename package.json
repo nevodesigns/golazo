@@ -11,10 +11,12 @@
     "start": "node dist/server.js",
     "dev": "node --loader ts-node/esm src/server.ts",
     "ingest": "node --loader ts-node/esm scripts/ingest.ts",
-    "ingest:refresh": "node --loader ts-node/esm scripts/ingest.ts --refresh"
+    "ingest:refresh": "node --loader ts-node/esm scripts/ingest.ts --refresh",
+    "mcp": "node --loader ts-node/esm src/mcp/server.ts"
   },
   "dependencies": {
     "@injectivelabs/x402": "^0.1.0-rc.1",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "express": "^4.19.2"
   },
   "devDependencies": {

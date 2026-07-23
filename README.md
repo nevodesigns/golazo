@@ -153,10 +153,62 @@ Verified knockout results in the seed:
 Spain's second world title after 2010. The seed currently covers the knockout
 phase; the group stage is populated by the refresh path.
 
+## MCP server, agent access
+
+An MCP server exposes Golazo to any MCP capable agent (Claude Desktop, Claude
+Code, Cursor). It has seven tools:
+
+- Free: `tournament_summary`, `list_teams`, `search_matches`
+- Premium: `match_analytics`, `head_to_head`, `team_breakdown`, `tournament_stats`
+
+When a premium tool is called and a wallet is configured, the server settles the
+x402 micropayment automatically through `createInjectiveClient`: it receives the
+402, signs an EIP-3009 authorisation, and retries, all with no human in the
+loop. That is the whole point, an agent buying data on its own.
+
+If no wallet is configured, premium tools do not error. They return a plain
+message explaining that the query is premium and how to enable payment. If a
+wallet is set but underfunded, they say exactly that and how to fix it.
+
+### Run it
+
+```bash
+npm run mcp   # talks MCP over stdio
+```
+
+The MCP server calls the HTTP API, so run the API too (`npm run dev`), or point
+it at a deployed instance with `GOLAZO_API_URL`.
+
+### Connect from Claude Desktop or Claude Code
+
+Add this to your MCP config (`claude_desktop_config.json` for Claude Desktop, or
+`.mcp.json` in a project for Claude Code):
+
+```json
+{
+  "mcpServers": {
+    "golazo": {
+      "command": "npm",
+      "args": ["run", "mcp"],
+      "cwd": "/absolute/path/to/golazo",
+      "env": {
+        "GOLAZO_API_URL": "http://localhost:3000",
+        "GOLAZO_WALLET_KEY": "0xYOUR_INJECTIVE_EVM_KEY"
+      }
+    }
+  }
+}
+```
+
+`GOLAZO_WALLET_KEY` is optional. Without it the free tools work and premium
+tools explain how to enable payment. With it, funded with a little testnet USDC,
+premium tools pay and return data automatically. Never commit this key.
+
 ## Roadmap
 
-An MCP server and an agent skill, so any AI agent can discover, query, and pay
-for this data automatically without bespoke integration.
+An agent skill ships alongside the MCP server (`skill/`), teaching an agent what
+data exists, which queries are free, which cost 0.01 USDC, and how to read the
+results.
 
 ## Licence
 
