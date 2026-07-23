@@ -1,0 +1,217 @@
+{
+  "tournament": {
+    "id": "wc2026",
+    "name": "FIFA World Cup 2026",
+    "edition": 23,
+    "year": 2026,
+    "hosts": [
+      "Canada",
+      "Mexico",
+      "United States"
+    ],
+    "startDate": "2026-06-11",
+    "endDate": "2026-07-19",
+    "teamCount": 48,
+    "groupCount": 12,
+    "matchCount": 104,
+    "champion": "ESP",
+    "runnerUp": "ARG",
+    "thirdPlace": "ENG",
+    "fourthPlace": "FRA"
+  },
+  "groups": [],
+  "teams": [
+    {
+      "id": "ESP",
+      "name": "Spain",
+      "code": "ESP",
+      "confederation": "UEFA"
+    },
+    {
+      "id": "ARG",
+      "name": "Argentina",
+      "code": "ARG",
+      "confederation": "CONMEBOL"
+    },
+    {
+      "id": "ENG",
+      "name": "England",
+      "code": "ENG",
+      "confederation": "UEFA"
+    },
+    {
+      "id": "FRA",
+      "name": "France",
+      "code": "FRA",
+      "confederation": "UEFA"
+    },
+    {
+      "id": "BEL",
+      "name": "Belgium",
+      "code": "BEL",
+      "confederation": "UEFA"
+    },
+    {
+      "id": "NOR",
+      "name": "Norway",
+      "code": "NOR",
+      "confederation": "UEFA"
+    },
+    {
+      "id": "BRA",
+      "name": "Brazil",
+      "code": "BRA",
+      "confederation": "CONMEBOL"
+    },
+    {
+      "id": "MEX",
+      "name": "Mexico",
+      "code": "MEX",
+      "confederation": "CONCACAF"
+    },
+    {
+      "id": "PAR",
+      "name": "Paraguay",
+      "code": "PAR",
+      "confederation": "CONMEBOL"
+    }
+  ],
+  "matches": [
+    {
+      "id": "wc2026-r16-eng-mex",
+      "stage": "round_of_16",
+      "date": "2026-07-05",
+      "homeTeam": "ENG",
+      "awayTeam": "MEX",
+      "homeScore": 3,
+      "awayScore": 2,
+      "provenance": "verified"
+    },
+    {
+      "id": "wc2026-r16-fra-par",
+      "stage": "round_of_16",
+      "date": "2026-07-05",
+      "homeTeam": "FRA",
+      "awayTeam": "PAR",
+      "homeScore": 1,
+      "awayScore": 0,
+      "provenance": "verified"
+    },
+    {
+      "id": "wc2026-r16-nor-bra",
+      "stage": "round_of_16",
+      "date": "2026-07-06",
+      "homeTeam": "NOR",
+      "awayTeam": "BRA",
+      "homeScore": 2,
+      "awayScore": 0,
+      "provenance": "verified"
+    },
+    {
+      "id": "wc2026-qf-esp-bel",
+      "stage": "quarter_final",
+      "date": "2026-07-10",
+      "homeTeam": "ESP",
+      "awayTeam": "BEL",
+      "homeScore": 2,
+      "awayScore": 1,
+      "provenance": "verified"
+    },
+    {
+      "id": "wc2026-qf-nor-eng",
+      "stage": "quarter_final",
+      "date": "2026-07-11",
+      "homeTeam": "NOR",
+      "awayTeam": "ENG",
+      "homeScore": 1,
+      "awayScore": 2,
+      "provenance": "verified"
+    },
+    {
+      "id": "wc2026-sf-esp-fra",
+      "stage": "semi_final",
+      "date": "2026-07-14",
+      "homeTeam": "ESP",
+      "awayTeam": "FRA",
+      "homeScore": 2,
+      "awayScore": 0,
+      "goals": [
+        {
+          "team": "ESP",
+          "scorer": "Mikel Oyarzabal",
+          "minute": 22,
+          "penalty": true
+        },
+        {
+          "team": "ESP",
+          "scorer": "Pedro Porro",
+          "minute": 58
+        }
+      ],
+      "provenance": "verified"
+    },
+    {
+      "id": "wc2026-sf-arg-eng",
+      "stage": "semi_final",
+      "date": "2026-07-15",
+      "homeTeam": "ARG",
+      "awayTeam": "ENG",
+      "homeScore": 2,
+      "awayScore": 1,
+      "afterExtraTime": true,
+      "goals": [
+        {
+          "team": "ARG",
+          "scorer": "Enzo Fernandez",
+          "minute": 85
+        },
+        {
+          "team": "ARG",
+          "scorer": "Lautaro Martinez",
+          "minute": 92
+        }
+      ],
+      "provenance": "verified"
+    },
+    {
+      "id": "wc2026-third-eng-fra",
+      "stage": "third_place",
+      "date": "2026-07-18",
+      "homeTeam": "ENG",
+      "awayTeam": "FRA",
+      "homeScore": 6,
+      "awayScore": 4,
+      "provenance": "verified"
+    },
+    {
+      "id": "wc2026-final-esp-arg",
+      "stage": "final",
+      "date": "2026-07-19",
+      "homeTeam": "ESP",
+      "awayTeam": "ARG",
+      "homeScore": 1,
+      "awayScore": 0,
+      "afterExtraTime": true,
+      "venue": "MetLife Stadium, New Jersey",
+      "goals": [
+        {
+          "team": "ESP",
+          "scorer": "Ferran Torres",
+          "minute": 106
+        }
+      ],
+      "provenance": "verified"
+    }
+  ],
+  "meta": {
+    "generatedAt": "2026-07-23",
+    "source": "seed",
+    "coverage": "knockout",
+    "notes": [
+      "Seed covers the verified knockout phase and tournament metadata.",
+      "Group stage fixtures are not included in the seed and are populated by the refresh path.",
+      "Every seeded match is marked provenance verified and was cross checked against at least two public sources.",
+      "Final was decided in extra time. Spain's second title after 2010."
+    ]
+  }
+}
