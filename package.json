@@ -1,0 +1,25 @@
+{
+  "name": "golazo",
+  "version": "0.1.0",
+  "description": "Agent payable World Cup 2026 data API, gated with x402 micropayments on Injective",
+  "license": "MIT",
+  "private": true,
+  "type": "commonjs",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
+    "ingest": "ts-node scripts/ingest.ts",
+    "ingest:refresh": "ts-node scripts/ingest.ts --refresh"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
