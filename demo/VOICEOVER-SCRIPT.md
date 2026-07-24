@@ -3,6 +3,17 @@
 Read for `demo/golazo-demo.mp4` (1920x1080, 102.8s). Thirteen lines, mapped to
 the eight segments and their real timings in the current cut.
 
+## Generated version
+
+A TTS narration of this script is at `demo/golazo-demo-vo.mp4` (118.9s), voice
+`en-NG-AbeoNeural` (male Nigerian English) via edge-tts. Every line was checked
+by transcription against the script. Delivery is measured (rate lowered), the
+money shot lines are slower, and line 9 is slowest. Where a line ran past its
+segment, the visual is held longer rather than the audio sped up. The silent
+`demo/golazo-demo.mp4` is unchanged. Two lines were phrased for clean TTS with no
+change of meaning: line 11 has a comma around "won", and line 12 says "Circle
+CCTP" rather than "Circle's CCTP". "x402" is voiced as "x four oh two".
+
 ## How to record
 
 - One continuous file. **Say the line number before each line** ("line four",
