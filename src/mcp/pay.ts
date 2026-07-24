@@ -40,37 +40,58 @@ export async function apiGet(path: string): Promise<PayResult> {
 
   // With a wallet, the client transparently handles 402 -> sign -> retry.
   if (c) {
+    let res: Response | null = null;
+    let data: any = {};
     try {
-      const res = await c.fetch(url);
-      const data: any = await res.json().catch(() => ({}));
-      if (res.ok) return { ok: true, status: res.status, data };
-
-      // The automatic payment was attempted but did not settle. Turn the
-      // common causes into a clear, actionable message instead of raw JSON.
-      const reason = String(data?.error ?? "").toLowerCase();
-      const term = data?.accepts?.[0] ?? {};
-      if (res.status === 402 || reason.includes("payment") || reason.includes("funds")) {
-        const insufficient = reason.includes("insufficient") || reason.includes("funds");
-        return {
-          ok: false,
-          status: res.status,
-          paymentNeeded: {
-            price: term.amount ? `${Number(term.amount) / 1_000_000} USDC` : "0.01 USDC",
-            asset: term.asset ?? "USDC",
-            network: term.network ?? "eip155:1439",
-            message: insufficient
-              ? "The payment was signed and submitted automatically, but the configured wallet does not hold enough USDC to settle it."
-              : "The automatic payment did not settle.",
-            howTo: insufficient
-              ? "Fund the GOLAZO_WALLET_KEY wallet with a little USDC (testnet by default) and run the same query again."
-              : "Check that GOLAZO_WALLET_KEY is a valid Injective EVM key and the facilitator is reachable, then retry.",
-          },
-        };
-      }
-      return { ok: false, status: res.status, data };
+      res = await c.fetch(url);
+      data = await res.json().catch(() => ({}));
     } catch (err) {
-      return { ok: false, status: 0, error: `payment or request failed: ${(err as Error).message}` };
+      // The rc x402 client on Node 24 can throw a parser error while reading
+      // the retried (paid) response, even though the payment settled on-chain
+      // and the server returned the data. undici hands the delivered body back
+      // on the error, so recover it. Payment is real regardless (see docs).
+      const delivered = (err as any)?.cause?.data ?? (err as any)?.data;
+      if (typeof delivered === "string") {
+        try {
+          const recovered = JSON.parse(delivered);
+          if (recovered && !recovered.error && !recovered.accepts) {
+            return { ok: true, status: 200, data: recovered };
+          }
+          data = recovered;
+        } catch {
+          return { ok: false, status: 0, error: `payment or request failed: ${(err as Error).message}` };
+        }
+      } else {
+        return { ok: false, status: 0, error: `payment or request failed: ${(err as Error).message}` };
+      }
     }
+
+    if (res && res.ok) return { ok: true, status: res.status, data };
+
+    // Payment attempted but did not settle. Turn the common causes into a clear,
+    // actionable message instead of raw JSON.
+    const status = res?.status ?? 402;
+    const reason = String(data?.error ?? "").toLowerCase();
+    const term = data?.accepts?.[0] ?? {};
+    if (status === 402 || reason.includes("payment") || reason.includes("funds")) {
+      const insufficient = reason.includes("insufficient") || reason.includes("funds");
+      return {
+        ok: false,
+        status,
+        paymentNeeded: {
+          price: term.amount ? `${Number(term.amount) / 1_000_000} USDC` : "0.01 USDC",
+          asset: term.asset ?? "USDC",
+          network: term.network ?? "eip155:1439",
+          message: insufficient
+            ? "The payment was signed and submitted automatically, but the configured wallet does not hold enough USDC to settle it."
+            : "The automatic payment did not settle.",
+          howTo: insufficient
+            ? "Fund the GOLAZO_WALLET_KEY wallet with a little USDC (testnet by default) and run the same query again."
+            : "Check that GOLAZO_WALLET_KEY is a valid Injective EVM key and the facilitator is reachable, then retry.",
+        },
+      };
+    }
+    return { ok: false, status, data };
   }
 
   // Without a wallet, do a plain fetch. Free endpoints just work.

@@ -4,6 +4,7 @@ import {
   INJECTIVE_MAINNET_CAIP2,
   INJECTIVE_TESTNET_CAIP2,
 } from "@injectivelabs/x402/networks";
+import { privateKeyToAccount } from "viem/accounts";
 
 import * as store from "./lib/store.js";
 import {
@@ -52,19 +53,47 @@ const PREMIUM_ROUTES = {
   "GET /v1/premium/stats": "Complete tournament statistics export",
 } as const;
 
+const facilitatorKey = process.env.PRIVATE_KEY as `0x${string}` | undefined;
+
+// When settling through an external facilitator, each route must name its payTo.
+// It is the facilitator wallet, derived from the same key, since that wallet
+// submits the transfer and receives the USDC.
+const PAY_TO = facilitatorKey ? privateKeyToAccount(facilitatorKey).address : undefined;
+
+const FACILITATOR_URL = process.env.GOLAZO_FACILITATOR_URL;
+
 const paywallConfig = Object.fromEntries(
   Object.entries(PREMIUM_ROUTES).map(([route, description]) => [
     route,
     {
       description,
-      accepts: [{ network: NETWORK, asset: USDC, amount: PRICE }],
+      accepts: [
+        {
+          network: NETWORK,
+          asset: USDC,
+          amount: PRICE,
+          ...(FACILITATOR_URL && PAY_TO ? { payTo: PAY_TO } : {}),
+        },
+      ],
     },
   ])
 );
 
-const facilitatorKey = process.env.PRIVATE_KEY as `0x${string}` | undefined;
-
-if (facilitatorKey) {
+if (FACILITATOR_URL) {
+  // Custom facilitator that confirms settlement via eth_getLogs, which the
+  // Injective testnet serves, unlike eth_getTransactionReceipt. See the
+  // facilitator server and docs/testnet-rpc-notes.md.
+  app.use(
+    injectivePaymentMiddleware(paywallConfig, {
+      facilitatorUrl: FACILITATOR_URL,
+      settlementPolicy: "after-success",
+    })
+  );
+  console.log(
+    `x402 paywall active on ${USE_MAINNET ? "mainnet" : "testnet"} (${NETWORK}), ` +
+      `settling via external facilitator ${FACILITATOR_URL}`
+  );
+} else if (facilitatorKey) {
   app.use(
     injectivePaymentMiddleware(paywallConfig, {
       facilitator: { privateKey: facilitatorKey },
