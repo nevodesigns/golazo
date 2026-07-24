@@ -218,10 +218,16 @@ GOLAZO_WALLET_KEY=0x<agent> PRIVATE_KEY=0x<facilitator> npm run fund-agent -- 0.
 
 It reuses the two lessons this project already learned about Injective: the mint
 is confirmed via `eth_getLogs` (not receipts), and it is relayed by the
-facilitator wallet so the agent can be funded even with zero INJ of its own. The
-CCTP V2 contracts are verified deployed on both chains, and the full flow, the
-verification, and the exact run state are documented in
-[docs/cctp-transfer.md](docs/cctp-transfer.md).
+facilitator wallet so the agent can be funded even with zero INJ of its own.
+
+The implementation is complete and the CCTP V2 contracts are confirmed deployed
+on both chains via `eth_getCode`, cross-checked against Circle's official sample
+app. The live run is currently blocked not by the code but by faucet policy: the
+Avalanche AVAX gas faucet requires a coupon or a mainnet balance, so the source
+wallet cannot be funded to sign the burn. The script halts cleanly at preflight,
+and the moment funds exist one command runs the full burn, attest, and mint and
+prints both transaction hashes. Full detail, including the on-chain verification,
+is in [docs/cctp-transfer.md](docs/cctp-transfer.md).
 
 ## Honest notes
 

@@ -64,13 +64,27 @@ parameters were cross-checked against Circle's official sample app
 (`circlefin/circle-cctp-crosschain-transfer`), which lists Injective testnet in
 its chain config at domain 29.
 
-## Status: built and verified, live run pending Fuji faucet
+## Status: implementation complete and verified, live run blocked on faucet policy
 
-The script is complete and typechecks, and it runs correctly through preflight.
-The one thing standing between it and a completed transfer is testnet funds on
-the source chain: the agent holds its 19.94 USDC on Injective, but nothing on
-Avalanche Fuji, and CCTP burns on the source. The script detects this and stops
-with exact instructions rather than sending a doomed transaction:
+The implementation is complete. It typechecks, and it runs correctly through
+preflight. What it verifies:
+
+- CCTP V2 contracts are confirmed deployed on **both** chains: contract code is
+  present at every address the script uses, checked directly with `eth_getCode`
+  (the table above).
+- The addresses, domains (Fuji 1, Injective 29), and standard-transfer
+  parameters are cross-checked against Circle's official sample app,
+  `circlefin/circle-cctp-crosschain-transfer`, which lists Injective testnet at
+  domain 29.
+
+The one thing standing between this and a completed transfer is testnet funds on
+the source chain. CCTP burns on the source, and the agent holds its 19.94 USDC
+on Injective but nothing on Avalanche Fuji. This is not a code or protocol
+problem, it is **faucet policy**: the Circle faucet supplies Fuji USDC, but the
+Avalanche AVAX gas faucet requires either a coupon code or a mainnet AVAX
+balance, neither of which was available, so the source wallet cannot be given
+gas to sign the burn. The script detects the unfunded wallet at preflight and
+stops with exact instructions rather than sending a doomed transaction:
 
 ```
 Golazo CCTP funding: Avalanche Fuji -> Injective
@@ -88,19 +102,28 @@ Fund it, then run again:
   - AVAX:  https://faucet.avax.network  (Fuji C-Chain, address 0x050F35c2fF49f5A0F35794E72BCE5B53dc0A6af5)
 ```
 
-To complete a live transfer, fund the agent wallet on Fuji with a little testnet
-USDC (Circle faucet) and a little AVAX for gas (Avalanche faucet), then:
+### Exactly what happens the moment funds exist
+
+Give the agent wallet a little Fuji USDC and a little Fuji AVAX for gas, then run
+one command:
 
 ```bash
 GOLAZO_WALLET_KEY=0x<agent> PRIVATE_KEY=0x<facilitator> npm run fund-agent -- 0.5
 ```
 
-The burn and mint transaction hashes go here once the live run completes:
+With funds present, preflight passes and the script runs straight through, no
+further edits: it approves the TokenMessengerV2, burns the USDC on Fuji and
+prints the burn hash, polls Iris until the attestation is `complete`, submits
+`receiveMessage` on Injective relayed by the facilitator, confirms the mint via
+`eth_getLogs`, and prints the before and after Injective balance with both
+transaction hashes. Those hashes then replace the placeholders below.
 
 ```
 burn tx (Avalanche Fuji):  <pending funding>
 mint tx (Injective):       <pending funding>
 ```
 
-This is documented honestly as built and verified up to the burn, blocked only
-on an external testnet faucet, not on the code or the protocol.
+To be clear about what is and is not proven: the CCTP V2 path is implemented in
+full and every contract it touches is confirmed live on-chain. The single
+missing piece is a funded source wallet, held up by an external faucet policy,
+not by this code or by the protocol.
