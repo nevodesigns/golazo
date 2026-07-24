@@ -13,7 +13,8 @@
     "ingest": "node --loader ts-node/esm scripts/ingest.ts",
     "ingest:refresh": "node --loader ts-node/esm scripts/ingest.ts --refresh",
     "mcp": "node --loader ts-node/esm src/mcp/server.ts",
-    "facilitator": "node --loader ts-node/esm src/facilitator/server.ts"
+    "facilitator": "node --loader ts-node/esm src/facilitator/server.ts",
+    "fund-agent": "node --loader ts-node/esm scripts/fund-agent.ts"
   },
   "dependencies": {
     "@injectivelabs/x402": "^0.1.0-rc.1",

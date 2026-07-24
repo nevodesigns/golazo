@@ -43,7 +43,7 @@ agent receives the data. It happens automatically, in one tool call.
 | **x402** | [src/server.ts](src/server.ts) | The paywall. `injectivePaymentMiddleware` gates every premium route, quotes 0.01 USDC in a 402, and settles the EIP-3009 payment. Charged `after-success`, so an error costs the caller nothing. |
 | **MCP Server** | [src/mcp/server.ts](src/mcp/server.ts), [src/mcp/pay.ts](src/mcp/pay.ts) | Agent access. Seven tools over stdio. Premium tools auto-pay through `createInjectiveClient`: receive 402, sign, retry, return data, no human in the loop. |
 | **Agent Skill** | [skill/SKILL.md](skill/SKILL.md) | The installable skill (Anthropic skill standard) that teaches an agent what data exists, which queries are free vs 0.01 USDC, and how to read the results. |
-| **CCTP** | `scripts/fund-agent.ts` *(in progress)* | Funding. Bridges USDC from Avalanche Fuji to the agent's Injective wallet via Circle CCTP V2 (Injective is CCTP domain 29), so the agent can top itself up to keep paying. The transfer script is the next build step. |
+| **CCTP** | [scripts/fund-agent.ts](scripts/fund-agent.ts) | Funding. Bridges native USDC from Avalanche Fuji to the agent's Injective wallet via Circle CCTP V2 (Injective is domain 29), so the agent can refuel itself to keep paying. See [docs/cctp-transfer.md](docs/cctp-transfer.md). |
 | **Custom facilitator** | [src/facilitator/server.ts](src/facilitator/server.ts) | Settlement confirmation. Confirms via `eth_getLogs` because Injective testnet does not serve receipts. This is what made the settled payment above actually complete. See [docs/testnet-rpc-notes.md](docs/testnet-rpc-notes.md). |
 
 ## Quickstart
@@ -203,6 +203,25 @@ that submits the identical transfer and confirms it with `eth_getLogs`, which th
 testnet does serve. The full evidence is in
 **[docs/testnet-rpc-notes.md](docs/testnet-rpc-notes.md)**. It is documented for
 other Injective builders regardless of this hackathon.
+
+## Funding the agent across chains (CCTP)
+
+An agent that pays for data will eventually run low. Rather than wait for a
+human, it can refuel itself with Circle's Cross-Chain Transfer Protocol V2:
+[scripts/fund-agent.ts](scripts/fund-agent.ts) burns native USDC on Avalanche
+Fuji and mints native USDC to the agent on Injective (domain 29). Same dollar,
+moved natively, no wrapped token or bridge pool.
+
+```bash
+GOLAZO_WALLET_KEY=0x<agent> PRIVATE_KEY=0x<facilitator> npm run fund-agent -- 0.5
+```
+
+It reuses the two lessons this project already learned about Injective: the mint
+is confirmed via `eth_getLogs` (not receipts), and it is relayed by the
+facilitator wallet so the agent can be funded even with zero INJ of its own. The
+CCTP V2 contracts are verified deployed on both chains, and the full flow, the
+verification, and the exact run state are documented in
+[docs/cctp-transfer.md](docs/cctp-transfer.md).
 
 ## Honest notes
 
