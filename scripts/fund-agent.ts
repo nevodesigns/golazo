@@ -89,6 +89,15 @@ const log = (msg: string) => console.log(`[+${((Date.now() - t0) / 1000).toFixed
 const toBytes32 = (addr: string): Hex => ("0x" + addr.replace(/^0x/, "").toLowerCase().padStart(64, "0")) as Hex;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+/** Retry a flaky read a few times. Public testnet RPCs drop requests. */
+async function retry<T>(fn: () => Promise<T>, tries = 3): Promise<T> {
+  let last: unknown;
+  for (let i = 0; i < tries; i++) {
+    try { return await fn(); } catch (e) { last = e; await sleep(800); }
+  }
+  throw last;
+}
+
 const erc20 = [
   parseAbiItem("function balanceOf(address) view returns (uint256)"),
   parseAbiItem("function allowance(address owner, address spender) view returns (uint256)"),
@@ -147,21 +156,21 @@ async function main() {
 
   /* -- preflight: the agent needs USDC to burn and AVAX for gas on Fuji -- */
   const [fujiUsdc, fujiGas, injBefore] = await Promise.all([
-    usdcBalance(fujiPub, FUJI.usdc, agent.address),
-    fujiPub.getBalance({ address: agent.address }),
-    usdcBalance(injPub, INJECTIVE.usdc, agent.address),
+    retry(() => usdcBalance(fujiPub, FUJI.usdc, agent.address)),
+    retry(() => fujiPub.getBalance({ address: agent.address })),
+    retry(() => usdcBalance(injPub, INJECTIVE.usdc, agent.address)),
   ]);
   log(`Fuji USDC:      ${formatUnits(fujiUsdc, 6)}`);
   log(`Fuji AVAX gas:  ${formatUnits(fujiGas, 18)}`);
   log(`Injective USDC (before): ${formatUnits(injBefore, 6)}\n`);
 
   if (fujiUsdc < amount || fujiGas === 0n) {
-    console.error("Cannot start the burn: the agent wallet is not funded on Avalanche Fuji.");
-    console.error("Fund it, then run again:");
+    console.log("Preflight: the agent cannot burn on Avalanche Fuji yet.");
     if (fujiUsdc < amount)
-      console.error(`  - USDC:  https://faucet.circle.com  (select Avalanche Fuji, address ${agent.address})`);
+      console.log(`  needs USDC to burn:  https://faucet.circle.com  (Avalanche Fuji, ${agent.address})`);
     if (fujiGas === 0n)
-      console.error(`  - AVAX:  https://faucet.avax.network  (Fuji C-Chain, address ${agent.address})`);
+      console.log(`  needs AVAX for gas:  https://faucet.avax.network  (Fuji C-Chain, ${agent.address})`);
+    console.log("Fund the wallet, then run the same command again.");
     process.exit(2);
   }
 

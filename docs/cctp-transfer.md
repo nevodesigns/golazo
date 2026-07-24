@@ -77,14 +77,15 @@ preflight. What it verifies:
   `circlefin/circle-cctp-crosschain-transfer`, which lists Injective testnet at
   domain 29.
 
-The one thing standing between this and a completed transfer is testnet funds on
-the source chain. CCTP burns on the source, and the agent holds its 19.94 USDC
-on Injective but nothing on Avalanche Fuji. This is not a code or protocol
-problem, it is **faucet policy**: the Circle faucet supplies Fuji USDC, but the
-Avalanche AVAX gas faucet requires either a coupon code or a mainnet AVAX
-balance, neither of which was available, so the source wallet cannot be given
-gas to sign the burn. The script detects the unfunded wallet at preflight and
-stops with exact instructions rather than sending a doomed transaction:
+The one thing standing between this and a completed transfer is gas on the
+source chain. The agent now holds USDC on both chains: the Circle faucet
+supplied 20 USDC on Avalanche Fuji, and it already had its balance on Injective.
+So it has the dollars to burn. What it does not have is Fuji **AVAX for gas**,
+and that is not a code or protocol problem, it is **faucet policy**: the
+Avalanche AVAX faucet requires either a coupon code or a mainnet AVAX balance,
+neither of which was available, so the source wallet cannot pay the gas to sign
+the burn. The script reads the balances, sees zero gas, and stops at preflight
+with exact instructions rather than sending a doomed transaction:
 
 ```
 Golazo CCTP funding: Avalanche Fuji -> Injective
@@ -92,14 +93,13 @@ Golazo CCTP funding: Avalanche Fuji -> Injective
   relayer (mints on Injective): 0xaC37161144343bc4ea9f0E33356B2D8f76bf2BA8
   amount: 0.5 USDC
 
-[+1.1s] Fuji USDC:      0
-[+1.1s] Fuji AVAX gas:  0
-[+1.1s] Injective USDC (before): 19.94
+[+2.1s] Fuji USDC:      20
+[+2.1s] Fuji AVAX gas:  0
+[+2.1s] Injective USDC (before): 19.92
 
-Cannot start the burn: the agent wallet is not funded on Avalanche Fuji.
-Fund it, then run again:
-  - USDC:  https://faucet.circle.com  (select Avalanche Fuji, address 0x050F35c2fF49f5A0F35794E72BCE5B53dc0A6af5)
-  - AVAX:  https://faucet.avax.network  (Fuji C-Chain, address 0x050F35c2fF49f5A0F35794E72BCE5B53dc0A6af5)
+Preflight: the agent cannot burn on Avalanche Fuji yet.
+  needs AVAX for gas:  https://faucet.avax.network  (Fuji C-Chain, 0x050F35c2fF49f5A0F35794E72BCE5B53dc0A6af5)
+Fund the wallet, then run the same command again.
 ```
 
 ### Exactly what happens the moment funds exist
@@ -124,6 +124,6 @@ mint tx (Injective):       <pending funding>
 ```
 
 To be clear about what is and is not proven: the CCTP V2 path is implemented in
-full and every contract it touches is confirmed live on-chain. The single
-missing piece is a funded source wallet, held up by an external faucet policy,
-not by this code or by the protocol.
+full and every contract it touches is confirmed live on-chain, and the source
+wallet already holds the USDC to burn. The single missing piece is Fuji AVAX for
+gas, held up by an external faucet policy, not by this code or by the protocol.
