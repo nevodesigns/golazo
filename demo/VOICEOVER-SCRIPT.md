@@ -3,34 +3,6 @@
 Read for `demo/golazo-demo.mp4` (1920x1080, 102.8s). Thirteen lines, mapped to
 the eight segments and their real timings in the current cut.
 
-## Generated version
-
-A TTS narration of this script is at `demo/golazo-demo-vo.mp4` (118.9s), voice
-`en-NG-AbeoNeural` (male Nigerian English) via edge-tts. Every line was checked
-by transcription against the script. Delivery is measured (rate lowered), the
-money shot lines are slower, and line 9 is slowest. Where a line ran past its
-segment, the visual is held longer rather than the audio sped up. The silent
-`demo/golazo-demo.mp4` is unchanged. Two lines were phrased for clean TTS with no
-change of meaning: line 11 has a comma around "won", and line 12 says "Circle
-CCTP" rather than "Circle's CCTP". "x402" is voiced as "x four oh two".
-
-## How to record
-
-- One continuous file. **Say the line number before each line** ("line four",
-  then the line), so takes can be sorted afterwards.
-- Leave a clear breath of silence between lines. Feel free to do a line twice if
-  you fumble it; the better take gets picked.
-- Plain and confident. You are explaining what is happening on screen, not
-  reading the screen out. Let sentences breathe.
-- The money shot (lines 4 to 9) is the one that matters. Slow down there. Land
-  line 9. A held beat of silence before line 9 is good.
-- Total speech is about 85 seconds against a 103 second video, so there is room.
-  If any line runs long for its segment, I extend the visual hold rather than
-  speed up your audio. Do not rush to fit.
-
-Timings below are the segment windows in the video and a target spoken length
-per line. Treat the target as comfort, not a stopwatch.
-
 ---
 
 ## Line 1  Title
@@ -112,15 +84,3 @@ Slow, deliberate. Each line lands as its moment appears on screen.
 - On screen: the closing card.
 
 > That is Golazo. Four Injective technologies: x402, MCP, agent skills, and CCTP. It is all on GitHub.
-
----
-
-## What I do with your recording
-
-1. Split your continuous file on the spoken line numbers, pick the cleanest take
-   of each line.
-2. Clean (light noise reduction), normalize the whole voice track to -16 LUFS.
-3. Place each line at its segment start, holding the visual longer where a line
-   runs past its window, so nothing is sped up.
-4. Mux into `demo/golazo-demo-vo.mp4`. The silent `demo/golazo-demo.mp4` stays
-   untouched.
