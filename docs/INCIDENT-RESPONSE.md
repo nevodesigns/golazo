@@ -167,3 +167,14 @@ positive control.
   Not yet set, and safe to add the same way if wanted: `Content-Security-Policy`
   (test against the video and fonts first) and `Strict-Transport-Security`
   (a long-lived commitment, so decide deliberately).
+
+### Deferred npm audit findings
+
+Two moderate findings surfaced by npm audit against `@hono/node-server`. Both are
+Windows-only path traversal via URL-encoded backslash. The package is transitive
+through `@modelcontextprotocol/sdk` to `hono`, not a direct dependency. The
+vulnerable code path executes only on Windows filesystems where backslash
+resolves as a path separator. The Golazo runtime and Pxxl deployment surface are
+both Linux, so the vulnerable code is installed in `node_modules` but never
+executes. Deferred until the MCP SDK ships a version depending on a patched
+Hono, at which point `npm update` clears the finding without any code change.
