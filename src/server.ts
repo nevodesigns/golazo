@@ -13,6 +13,7 @@ import {
   matchAnalytics,
   tournamentStats,
 } from "./lib/analytics.js";
+import { rateLimit } from "./lib/rateLimit.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
 
@@ -37,6 +38,9 @@ const PRICE = "10000";
 
 const app = express();
 app.use(express.json());
+// Per-client rate limit (default 120 req / 60s). Applied before routing so it
+// covers every endpoint, free and premium alike.
+app.use(rateLimit());
 
 /* ------------------------------------------------------------------ *
  * x402 paywall
