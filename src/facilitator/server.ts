@@ -31,6 +31,11 @@ if (!KEY) {
   process.exit(1);
 }
 const PORT = Number(process.env.FACILITATOR_PORT ?? 3402);
+// Bind to loopback by default. The facilitator holds the gas wallet and does no
+// auth of its own, so it must not be exposed on a public interface; the API
+// server reaches it at http://localhost:3402. Override with FACILITATOR_HOST
+// only when fronting it with an authenticated proxy on a trusted network.
+const HOST = process.env.FACILITATOR_HOST ?? "127.0.0.1";
 const account = privateKeyToAccount(KEY);
 
 // Reuse the reference facilitator's verification: signature, balance, nonce,
@@ -177,6 +182,6 @@ app.get("/health", (_req: Request, res: Response) =>
   res.json({ status: "ok", facilitator: account.address, confirms: "eth_getLogs" })
 );
 
-app.listen(PORT, () =>
-  console.error(`golazo facilitator (getLogs confirmation) on :${PORT}, address ${account.address}`)
+app.listen(PORT, HOST, () =>
+  console.error(`golazo facilitator (getLogs confirmation) on ${HOST}:${PORT}, address ${account.address}`)
 );
