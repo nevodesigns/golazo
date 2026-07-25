@@ -102,7 +102,7 @@ if (FACILITATOR_URL) {
   );
   console.log(`x402 paywall active on ${USE_MAINNET ? "mainnet" : "testnet"} (${NETWORK})`);
 } else {
-  // Without a facilitator key we cannot settle payments, so rather than
+  // Without a facilitator key the server cannot settle payments, so rather than
   // silently serving premium data for free we answer 402 ourselves with the
   // same payment terms. The paywall is never bypassed.
   app.use((req: Request, res: Response, next: NextFunction) => {

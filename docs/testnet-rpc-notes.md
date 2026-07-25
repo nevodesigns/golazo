@@ -34,7 +34,7 @@ The USDC balance of the payer dropped by exactly 0.01 across these transfers, so
 the state change is real. Only the receipt and by-hash endpoints fail to serve
 it.
 
-We tested four endpoints:
+Four endpoints were tested:
 
 | RPC | eth_chainId | receipt for a confirmed tx |
 |---|---|---|
@@ -53,12 +53,12 @@ The transactions above are minutes old and still return null from the receipt
 and by-hash endpoints, while `eth_getLogs` returns them immediately with block
 numbers. Polling longer does not help.
 
-## What we did about it
+## The workaround
 
 x402 settlement in the reference `@injectivelabs/x402` facilitator confirms via
 `eth_getTransactionReceipt`, so it times out on this testnet even though the
-payment lands. We wrote a small custom facilitator
-(`src/facilitator/server.ts`) that submits the identical
+payment lands. A small custom facilitator
+(`src/facilitator/server.ts`) submits the identical
 `transferWithAuthorization` transaction and confirms it with `eth_getLogs`,
 which this testnet does serve. The payment is byte for byte the same and fully
 on-chain; only the confirmation method changed. The middleware points at this

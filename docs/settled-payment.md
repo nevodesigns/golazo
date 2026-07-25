@@ -114,7 +114,7 @@ on-chain USDC transfers and independent proof that the payment path works.
 
 ---
 
-## One honest note on the client
+## Note on the rc client
 
 The x402 client shipped in the `0.1.0-rc.1` package throws an undici HTTP parser
 error while reading the retried (paid) response on Node 24, even though the

@@ -4,8 +4,8 @@
  * A free endpoint is a plain fetch. A premium endpoint answers 402 with payment
  * terms; if a wallet is configured, createInjectiveClient signs an EIP-3009
  * authorisation and retries automatically, so the agent buys the data with no
- * human in the loop. If no wallet is configured, we do NOT surface a raw error:
- * we read the quoted terms and return a clear, actionable explanation.
+ * human in the loop. If no wallet is configured, it does NOT surface a raw error:
+ * it reads the quoted terms and returns a clear, actionable explanation.
  */
 import { createInjectiveClient } from "@injectivelabs/x402/client";
 

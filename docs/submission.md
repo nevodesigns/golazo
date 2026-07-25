@@ -29,7 +29,7 @@ Injective. An agent hits a premium tool, receives an HTTP 402, signs an EIP-3009
 authorisation, the payment settles on Injective, and the agent gets the data.
 One tool call, no human in the loop.
 
-This is not a mock. A real agent settled a real payment on-chain: it received a
+A real agent settled a real payment on-chain: it received a
 402, signed EIP-3009, paid 0.01 USDC, and got the data back. The settlement
 transaction is
 `0x7e9893225d21e9acfe072b7a545bd37675ec6d2147a973ad254c40a298f31b5d`
